@@ -36,7 +36,7 @@ public class Application {
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.hodoor.server.controller"))
+        .apis(RequestHandlerSelectors.basePackage("com.sample.server.controller"))
         .paths(PathSelectors.any())
         .build();
   }
