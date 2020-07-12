@@ -4,7 +4,6 @@ import com.sample.server.model.Element;
 import com.sample.server.service.ElementService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,7 @@ public class ElementController {
     }
 
     @ApiOperation(value = "Get by id", tags = LABEL)
-    @GetMapping("/{id}/")
+    @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable(name = "id") String id) {
         final Optional<Element> element = elementService.getById(id);
         return element.isPresent() ? ResponseEntity.ok(element.get()) : ResponseEntity.notFound().build();
