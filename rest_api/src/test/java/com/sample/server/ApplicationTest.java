@@ -14,7 +14,7 @@ class ApplicationTest {
     private ElementController elementController;
 
     @Test
-    public void contextIsPresent() throws Exception {
+    public void contextInitialized() throws Exception {
         assertNotNull(elementController);
     }
 }
