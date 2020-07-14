@@ -4,6 +4,7 @@ import com.sample.server.model.Element;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +14,11 @@ import java.util.Optional;
 @Repository
 public class ElementRepository {
 
-    private final List<Element> database = new ArrayList<>();
+    private final List<Element> database = new ArrayList<>(List.of(
+        new Element("default-e1", "Element 1", "Lorem ipsum dolor sit amet", new Date(), true, 5),
+        new Element("default-e2", "Element 2", "Ut enim ad minim veniam", new Date(), true, 0),
+        new Element("default-e3", "Element 3", "Excepteur sint occaecat cupidatat non proident,", new Date(), true, 15)
+    ));
 
     public Element save(Element element) {
         database.add(element);

@@ -21,6 +21,18 @@ public class Element {
 
     private int amount;
 
+    public Element() {
+    }
+
+    public Element(String id, String name, String description, Date date, boolean success, int amount) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.success = success;
+        this.amount = amount;
+    }
+
     public String getId() {
         return id;
     }

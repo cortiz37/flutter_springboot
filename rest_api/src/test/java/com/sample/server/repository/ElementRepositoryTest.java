@@ -26,12 +26,12 @@ class ElementRepositoryTest {
     void save() {
         Element element = new Element();
         element.setId("e2");
-        final int listSize = 2;
+        final int listSize = elementRepository.getDatabase().size();
 
         String createdId = elementRepository.save(element).getId();
 
         assertEquals(element.getId(), createdId);
-        assertEquals(listSize, elementRepository.getDatabase().size());
+        assertEquals(listSize + 1, elementRepository.getDatabase().size());
     }
 
     @Test
