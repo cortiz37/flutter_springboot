@@ -14,8 +14,6 @@ import java.util.Optional;
 @RequestMapping("/elements")
 public class ElementController {
 
-    private static final String LABEL = "Access";
-
     private final ElementService elementService;
 
     @Autowired
