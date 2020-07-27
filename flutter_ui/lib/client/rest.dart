@@ -15,7 +15,7 @@ class Rest {
 
   static Future<http.Response> requestGet(String path) async {
     return await http.get(URL + path, headers: {
-      HttpHeaders.contentTypeHeader: 'application/json'
+      HttpHeaders.contentTypeHeader: 'application/json',
     }).timeout(restHttpDurationTimeout);
   }
 
@@ -25,11 +25,5 @@ class Rest {
             headers: {HttpHeaders.contentTypeHeader: 'application/json'},
             body: jsonEncode(request))
         .timeout(restHttpDurationTimeout);
-  }
-
-  static Future<http.Response> requestDelete(String path) async {
-    return await http.delete(URL + path, headers: {
-      HttpHeaders.contentTypeHeader: 'application/json'
-    }).timeout(restHttpDurationTimeout);
   }
 }
