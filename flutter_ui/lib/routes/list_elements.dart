@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/client/element_service.dart';
 
 class ListElements extends StatelessWidget {
   final AppBar appBar;
@@ -9,16 +10,19 @@ class ListElements extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: this.appBar,
-        backgroundColor: Colors.grey[200],
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: SizedBox(
-              width: 400,
-              child: Card(
-                child: Text('List'),
-              ),
-            ),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          child: FutureBuilder<Iterable>(
+            future: elementService.getElements(),
+            builder: (BuildContext context, AsyncSnapshot<Iterable> snapshot) {
+              if (snapshot.hasData) {
+                var elements = List.of(snapshot.data);
+                return Text('Elements loaded! ${elements.length} total');
+              } else if (snapshot.hasError) {
+                return Text('Error loading elements: ${snapshot.error}');
+              }
+              return CircularProgressIndicator();
+            },
           ),
         ));
   }

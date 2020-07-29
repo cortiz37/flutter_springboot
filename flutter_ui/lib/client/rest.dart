@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class Rest {
   static const Duration restHttpDurationTimeout = Duration(seconds: 5);
 
-  static const URL = 'http://10.0.2.2:8080/v1/rest_api';
+  static const URL = 'http://10.0.2.2:8085/v1/rest_api';
 
   static dynamic decodeResponse(http.Response response) {
     return jsonDecode(utf8.decode(response.bodyBytes));
