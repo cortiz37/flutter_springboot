@@ -6,18 +6,45 @@ class ListElements extends StatelessWidget {
 
   ListElements({this.appBar});
 
+  Widget asListView(List elements) {
+    return ListView.separated(
+      separatorBuilder: (context, index) {
+        return Divider(thickness: 1);
+      },
+      addAutomaticKeepAlives: true,
+      scrollDirection: Axis.vertical,
+      itemCount: elements.length,
+      itemBuilder: (BuildContext context, int index) {
+        var element = elements[index];
+        return ListTile(
+          leading: element['success']
+              ? Icon(Icons.label_important)
+              : Icon(Icons.label_outline),
+          title: Text(element['name']),
+          subtitle: Text(element['description']),
+          trailing: Chip(
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+                side: BorderSide(color: Colors.grey, width: 1)),
+            label: Text(element['amount'].toString()),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: this.appBar,
         body: Container(
-          padding: EdgeInsets.all(10),
+          //padding: EdgeInsets.all(10),
           child: FutureBuilder<Iterable>(
             future: elementService.getElements(),
             builder: (BuildContext context, AsyncSnapshot<Iterable> snapshot) {
               if (snapshot.hasData) {
-                var elements = List.of(snapshot.data);
-                return Text('Elements loaded! ${elements.length} total');
+                return this.asListView(List.of(snapshot.data));
               } else if (snapshot.hasError) {
                 return Text('Error loading elements: ${snapshot.error}');
               }
