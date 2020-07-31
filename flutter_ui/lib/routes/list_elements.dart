@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/client/element_service.dart';
+import 'package:flutter_ui/main.dart';
 
 class ListElements extends StatelessWidget {
   final AppBar appBar;
 
   ListElements({this.appBar});
 
-  Widget asListView(List elements) {
+  Widget _asListView(List elements) {
     return ListView.separated(
       separatorBuilder: (context, index) {
         return Divider(thickness: 1);
@@ -37,20 +38,27 @@ class ListElements extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: this.appBar,
-        body: Container(
-          //padding: EdgeInsets.all(10),
-          child: FutureBuilder<Iterable>(
-            future: elementService.getElements(),
-            builder: (BuildContext context, AsyncSnapshot<Iterable> snapshot) {
-              if (snapshot.hasData) {
-                return this.asListView(List.of(snapshot.data));
-              } else if (snapshot.hasError) {
-                return Text('Error loading elements: ${snapshot.error}');
-              }
-              return CircularProgressIndicator();
-            },
-          ),
-        ));
+      appBar: this.appBar,
+      body: Container(
+        //padding: EdgeInsets.all(10),
+        child: FutureBuilder<Iterable>(
+          future: elementService.getElements(),
+          builder: (BuildContext context, AsyncSnapshot<Iterable> snapshot) {
+            if (snapshot.hasData) {
+              return this._asListView(List.of(snapshot.data));
+            } else if (snapshot.hasError) {
+              return Text('Error loading elements: ${snapshot.error}');
+            }
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context)
+            .pushNamedAndRemoveUntil(SimpleApp.ROUTE_FORM, (_) => false),
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+      ),
+    );
   }
 }
