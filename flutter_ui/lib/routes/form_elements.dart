@@ -13,6 +13,27 @@ class _FormElements extends State<FormElements> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget _buildForm(BuildContext context) {
+    var controls = [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5),
+        child: TextFormField(
+          decoration: InputDecoration(
+            hintText: 'Name',
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5),
+        child: TextFormField(
+          decoration: InputDecoration(
+            hintText: 'Description',
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+          ),
+        ),
+      ),
+    ];
+
     return Form(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -23,7 +44,7 @@ class _FormElements extends State<FormElements> {
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text('SAMPLE')],
+                children: controls,
               ),
             ),
           ),
