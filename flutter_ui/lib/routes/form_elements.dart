@@ -64,7 +64,10 @@ class _FormElements extends State<FormElements> {
                 FlatButton(
                     color: Colors.white,
                     textColor: Colors.blue,
-                    onPressed: () => {},
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil(ROUTE_LIST, (_) => false);
+                    },
                     child: Text('Cancel'),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
