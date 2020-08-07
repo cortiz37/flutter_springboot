@@ -6,14 +6,33 @@ void main() {
   runApp(SimpleApp());
 }
 
+const APP_NAME = 'Simple Flutter App';
+const ROUTE_LIST = '/list';
+const ROUTE_FORM = '/form';
+
 class SimpleApp extends StatelessWidget {
-  static const ROUTE_LIST = '/list';
-  static const ROUTE_FORM = '/form';
-  static const APP_NAME = 'Simple Flutter App';
+
+  final StandardAppBar appBar = StandardAppBar();
 
   @override
   Widget build(BuildContext context) {
-    var appbar = AppBar(
+    return MaterialApp(
+      title: APP_NAME,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: ListElements(appBar: appBar),
+      routes: {
+        ROUTE_LIST: (context) => ListElements(appBar: appBar),
+        ROUTE_FORM: (context) => FormElements(appBar: appBar),
+      },
+    );
+  }
+}
+
+class StandardAppBar extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
       automaticallyImplyLeading: true,
       leading: IconButton(
         icon: Icon(Icons.home),
@@ -24,16 +43,8 @@ class SimpleApp extends StatelessWidget {
       ),
       title: Text(APP_NAME),
     );
-
-    return MaterialApp(
-      title: APP_NAME,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: ListElements(appBar: appbar),
-      routes: {
-        ROUTE_LIST: (context) => ListElements(appBar: appbar),
-        ROUTE_FORM: (context) => FormElements(appBar: appbar),
-      },
-    );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

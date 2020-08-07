@@ -3,7 +3,7 @@ import 'package:flutter_ui/client/element_service.dart';
 import 'package:flutter_ui/main.dart';
 
 class ListElements extends StatelessWidget {
-  final AppBar appBar;
+  final StandardAppBar appBar;
 
   ListElements({this.appBar});
 
@@ -55,7 +55,7 @@ class ListElements extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context)
-            .pushNamedAndRemoveUntil(SimpleApp.ROUTE_FORM, (_) => false),
+            .pushNamedAndRemoveUntil(ROUTE_FORM, (_) => false),
         child: Icon(Icons.add),
         backgroundColor: Colors.blue,
       ),

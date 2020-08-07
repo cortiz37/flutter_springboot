@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/main.dart';
 
 class FormElements extends StatefulWidget {
-  final AppBar appBar;
+  final StandardAppBar appBar;
 
   FormElements({this.appBar});
 
@@ -48,14 +49,30 @@ class _FormElements extends State<FormElements> {
               ),
             ),
           ),
-          Container(
-            height: 40,
-            width: double.infinity,
-            child: FlatButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              onPressed: () => {},
-              child: Text('Accept'),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FlatButton(
+                  color: Colors.blue,
+                  textColor: Colors.white,
+                  onPressed: () => {},
+                  child: Text('Accept'),
+                ),
+                SizedBox(width: 10),
+                FlatButton(
+                    color: Colors.white,
+                    textColor: Colors.blue,
+                    onPressed: () => {},
+                    child: Text('Cancel'),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                          color: Colors.blue,
+                          width: 1,
+                          style: BorderStyle.solid),
+                    )),
+              ],
             ),
           ),
         ],
@@ -65,9 +82,6 @@ class _FormElements extends State<FormElements> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: widget.appBar,
-        backgroundColor: Colors.grey[200],
-        body: this._buildForm(context));
+    return Scaffold(appBar: widget.appBar, body: this._buildForm(context));
   }
 }
