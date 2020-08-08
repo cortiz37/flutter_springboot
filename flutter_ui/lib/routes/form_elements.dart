@@ -13,6 +13,20 @@ class FormElements extends StatefulWidget {
 class _FormElements extends State<FormElements> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  void _save() async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    print("SAVING...");
+  }
+
+  String _required(String value) {
+    if (value.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
   Widget _buildForm(BuildContext context) {
     var controls = [
       Padding(
@@ -22,6 +36,7 @@ class _FormElements extends State<FormElements> {
             hintText: 'Name',
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
           ),
+          validator: this._required,
         ),
       ),
       Padding(
@@ -31,6 +46,7 @@ class _FormElements extends State<FormElements> {
             hintText: 'Description',
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
           ),
+          validator: this._required,
         ),
       ),
     ];
@@ -57,7 +73,7 @@ class _FormElements extends State<FormElements> {
                 FlatButton(
                   color: Colors.blue,
                   textColor: Colors.white,
-                  onPressed: () => {},
+                  onPressed: () => this._save(),
                   child: Text('Accept'),
                 ),
                 SizedBox(width: 10),
