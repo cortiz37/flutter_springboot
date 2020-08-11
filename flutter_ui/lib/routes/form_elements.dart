@@ -15,6 +15,10 @@ class _FormElements extends State<FormElements> {
 
   final inputPadding = EdgeInsets.fromLTRB(8, 4, 8, 4);
 
+  final FocusNode _focusName = new FocusNode();
+  final FocusNode _focusDescription = new FocusNode();
+  final FocusNode _focusAmount = new FocusNode();
+
   void _save() async {
     if (!_formKey.currentState.validate()) {
       return;
@@ -41,6 +45,11 @@ class _FormElements extends State<FormElements> {
           ),
           validator: this._required,
           textInputAction: TextInputAction.next,
+          focusNode: _focusName,
+          onFieldSubmitted: (term) {
+            _focusName.unfocus();
+            FocusScope.of(context).requestFocus(_focusDescription);
+          },
         ),
       ),
       Padding(
@@ -53,6 +62,11 @@ class _FormElements extends State<FormElements> {
           ),
           validator: this._required,
           textInputAction: TextInputAction.next,
+          focusNode: _focusDescription,
+          onFieldSubmitted: (term) {
+            _focusDescription.unfocus();
+            FocusScope.of(context).requestFocus(_focusAmount);
+          },
         ),
       ),
       Padding(
@@ -66,6 +80,7 @@ class _FormElements extends State<FormElements> {
           validator: this._required,
           textInputAction: TextInputAction.done,
           keyboardType: TextInputType.number,
+          focusNode: _focusAmount,
         ),
       ),
     ];
