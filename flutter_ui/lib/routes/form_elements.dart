@@ -13,6 +13,8 @@ class FormElements extends StatefulWidget {
 class _FormElements extends State<FormElements> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  final inputPadding = EdgeInsets.fromLTRB(8, 4, 8, 4);
+
   void _save() async {
     if (!_formKey.currentState.validate()) {
       return;
@@ -33,20 +35,37 @@ class _FormElements extends State<FormElements> {
         padding: EdgeInsets.symmetric(vertical: 5),
         child: TextFormField(
           decoration: InputDecoration(
+            contentPadding: inputPadding,
             hintText: 'Name',
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
           ),
           validator: this._required,
+          textInputAction: TextInputAction.next,
         ),
       ),
       Padding(
         padding: EdgeInsets.symmetric(vertical: 5),
         child: TextFormField(
           decoration: InputDecoration(
+            contentPadding: inputPadding,
             hintText: 'Description',
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
           ),
           validator: this._required,
+          textInputAction: TextInputAction.next,
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5),
+        child: TextFormField(
+          decoration: InputDecoration(
+            contentPadding: inputPadding,
+            hintText: 'Amount',
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+          ),
+          validator: this._required,
+          textInputAction: TextInputAction.done,
+          keyboardType: TextInputType.number,
         ),
       ),
     ];
