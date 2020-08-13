@@ -18,6 +18,7 @@ class _FormElements extends State<FormElements> {
   final FocusNode _focusName = new FocusNode();
   final FocusNode _focusDescription = new FocusNode();
   final FocusNode _focusAmount = new FocusNode();
+  final FocusNode _focusSuccess = new FocusNode();
 
   Map element = {'success': true};
 
@@ -83,6 +84,10 @@ class _FormElements extends State<FormElements> {
           textInputAction: TextInputAction.done,
           keyboardType: TextInputType.number,
           focusNode: _focusAmount,
+          onFieldSubmitted: (term) {
+            _focusAmount.unfocus();
+            FocusScope.of(context).requestFocus(_focusSuccess);
+          },
         ),
       ),
       Padding(
@@ -100,6 +105,7 @@ class _FormElements extends State<FormElements> {
                   element['success'] = value;
                 });
               },
+              focusNode: _focusSuccess,
             ),
           ],
         ),
