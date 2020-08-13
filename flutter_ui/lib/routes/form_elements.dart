@@ -19,6 +19,8 @@ class _FormElements extends State<FormElements> {
   final FocusNode _focusDescription = new FocusNode();
   final FocusNode _focusAmount = new FocusNode();
 
+  Map element = {'success': true};
+
   void _save() async {
     if (!_formKey.currentState.validate()) {
       return;
@@ -83,6 +85,29 @@ class _FormElements extends State<FormElements> {
           focusNode: _focusAmount,
         ),
       ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Text('Successful element'),
+            SizedBox(width: 10),
+            Switch(
+              value: element['success'],
+              onChanged: (value) {
+                setState(() {
+                  element['success'] = value;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5),
+        child: Divider(),
+      ),
     ];
 
     return Form(
@@ -100,7 +125,7 @@ class _FormElements extends State<FormElements> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.only(right: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
