@@ -20,18 +20,31 @@ class _FormElements extends State<FormElements> {
   final FocusNode _focusAmount = new FocusNode();
   final FocusNode _focusSuccess = new FocusNode();
 
-  Map element = {'success': true};
+  Map element = {
+    'name': '',
+    'description': '',
+    'amount': 0,
+    'success': true,
+  };
 
   void _save() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
-    print("SAVING...");
+    print(element);
   }
 
   String _required(String value) {
     if (value.isEmpty) {
       return 'This field is required';
+    }
+    return null;
+  }
+
+  String _integer(String value) {
+    final _required = this._required(value);
+    if (_required == null) {
+      return int.tryParse(value) == null ? 'Should it be an integer' : null;
     }
     return null;
   }
@@ -49,6 +62,9 @@ class _FormElements extends State<FormElements> {
           validator: this._required,
           textInputAction: TextInputAction.next,
           focusNode: _focusName,
+          onChanged: (value) {
+            element['name'] = value;
+          },
           onFieldSubmitted: (term) {
             _focusName.unfocus();
             FocusScope.of(context).requestFocus(_focusDescription);
@@ -66,6 +82,9 @@ class _FormElements extends State<FormElements> {
           validator: this._required,
           textInputAction: TextInputAction.next,
           focusNode: _focusDescription,
+          onChanged: (value) {
+            element['description'] = value;
+          },
           onFieldSubmitted: (term) {
             _focusDescription.unfocus();
             FocusScope.of(context).requestFocus(_focusAmount);
@@ -80,10 +99,13 @@ class _FormElements extends State<FormElements> {
             hintText: 'Amount',
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
           ),
-          validator: this._required,
+          validator: this._integer,
           textInputAction: TextInputAction.done,
           keyboardType: TextInputType.number,
           focusNode: _focusAmount,
+          onChanged: (value) {
+            element['amount'] = int.tryParse(value);
+          },
           onFieldSubmitted: (term) {
             _focusAmount.unfocus();
             FocusScope.of(context).requestFocus(_focusSuccess);
