@@ -3,8 +3,9 @@ import 'package:flutter_ui/main.dart';
 
 class FormElements extends StatefulWidget {
   final StandardAppBar appBar;
+  final Map element;
 
-  FormElements({this.appBar});
+  FormElements({this.appBar, this.element});
 
   @override
   _FormElements createState() => _FormElements();
@@ -20,18 +21,27 @@ class _FormElements extends State<FormElements> {
   final FocusNode _focusAmount = new FocusNode();
   final FocusNode _focusSuccess = new FocusNode();
 
-  Map element = {
-    'name': '',
-    'description': '',
-    'amount': 0,
-    'success': true,
-  };
+  TextEditingController _controllerName;
+  TextEditingController _controllerDescription;
+  TextEditingController _controllerAmount;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllerName = TextEditingController(text: widget.element['name']);
+    _controllerDescription =
+        TextEditingController(text: widget.element['description']);
+    _controllerAmount = TextEditingController(text: widget.element['amount'].toString());
+  }
 
   void _save() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
-    print(element);
+    widget.element['name'] = _controllerName.value.text;
+    widget.element['description'] = _controllerDescription.value.text;
+    widget.element['amount'] = int.parse(_controllerAmount.value.text);
+    print(widget.element);
   }
 
   String _required(String value) {
@@ -62,9 +72,7 @@ class _FormElements extends State<FormElements> {
           validator: this._required,
           textInputAction: TextInputAction.next,
           focusNode: _focusName,
-          onChanged: (value) {
-            element['name'] = value;
-          },
+          controller: _controllerName,
           onFieldSubmitted: (term) {
             _focusName.unfocus();
             FocusScope.of(context).requestFocus(_focusDescription);
@@ -82,9 +90,7 @@ class _FormElements extends State<FormElements> {
           validator: this._required,
           textInputAction: TextInputAction.next,
           focusNode: _focusDescription,
-          onChanged: (value) {
-            element['description'] = value;
-          },
+          controller: _controllerDescription,
           onFieldSubmitted: (term) {
             _focusDescription.unfocus();
             FocusScope.of(context).requestFocus(_focusAmount);
@@ -103,9 +109,7 @@ class _FormElements extends State<FormElements> {
           textInputAction: TextInputAction.done,
           keyboardType: TextInputType.number,
           focusNode: _focusAmount,
-          onChanged: (value) {
-            element['amount'] = int.tryParse(value);
-          },
+          controller: _controllerAmount,
           onFieldSubmitted: (term) {
             _focusAmount.unfocus();
             FocusScope.of(context).requestFocus(_focusSuccess);
@@ -121,10 +125,10 @@ class _FormElements extends State<FormElements> {
             Text('Successful element'),
             SizedBox(width: 10),
             Switch(
-              value: element['success'],
+              value: widget.element['success'],
               onChanged: (value) {
                 setState(() {
-                  element['success'] = value;
+                  widget.element['success'] = value;
                 });
               },
               focusNode: _focusSuccess,
