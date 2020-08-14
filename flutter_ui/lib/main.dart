@@ -14,6 +14,13 @@ class SimpleApp extends StatelessWidget {
 
   final StandardAppBar appBar = StandardAppBar();
 
+  Map element = {
+    'name': '',
+    'description': '',
+    'amount': 0,
+    'success': true,
+  };
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,7 +30,7 @@ class SimpleApp extends StatelessWidget {
       home: ListElements(appBar: appBar),
       routes: {
         ROUTE_LIST: (context) => ListElements(appBar: appBar),
-        ROUTE_FORM: (context) => FormElements(appBar: appBar),
+        ROUTE_FORM: (context) => FormElements(appBar: appBar, element: element),
       },
     );
   }
