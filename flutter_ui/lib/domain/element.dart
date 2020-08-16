@@ -1,4 +1,3 @@
-import 'package:flutter_ui/domain/element.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'element.g.dart';
@@ -19,7 +18,8 @@ class Element {
     this.success,
   );
 
-  factory Element.fromJson(Map<String, dynamic> json) => _$ElementFromJson(json);
+  factory Element.fromJson(Map<String, dynamic> json) =>
+      _$ElementFromJson(json);
 
   Map<String, dynamic> toJson() => _$ElementToJson(this);
 }
