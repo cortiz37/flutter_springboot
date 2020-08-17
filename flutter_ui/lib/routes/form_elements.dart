@@ -42,7 +42,7 @@ class _FormElements extends State<FormElements> {
     widget.elementEntity.name = _controllerName.value.text;
     widget.elementEntity.description = _controllerDescription.value.text;
     widget.elementEntity.amount = int.parse(_controllerAmount.value.text);
-    print(widget.elementEntity);
+    print(widget.elementEntity.toJson());
   }
 
   String _required(String value) {
