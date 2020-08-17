@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/domain/element_entity.dart';
 import 'package:flutter_ui/main.dart';
 
 class FormElements extends StatefulWidget {
   final StandardAppBar appBar;
-  final Map element;
+  final ElementEntity elementEntity;
 
-  FormElements({this.appBar, this.element});
+  FormElements({this.appBar, this.elementEntity});
 
   @override
   _FormElements createState() => _FormElements();
@@ -28,20 +29,20 @@ class _FormElements extends State<FormElements> {
   @override
   void initState() {
     super.initState();
-    _controllerName = TextEditingController(text: widget.element['name']);
+    _controllerName = TextEditingController(text: widget.elementEntity.name);
     _controllerDescription =
-        TextEditingController(text: widget.element['description']);
-    _controllerAmount = TextEditingController(text: widget.element['amount'].toString());
+        TextEditingController(text: widget.elementEntity.description);
+    _controllerAmount = TextEditingController(text: widget.elementEntity.amount.toString());
   }
 
   void _save() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
-    widget.element['name'] = _controllerName.value.text;
-    widget.element['description'] = _controllerDescription.value.text;
-    widget.element['amount'] = int.parse(_controllerAmount.value.text);
-    print(widget.element);
+    widget.elementEntity.name = _controllerName.value.text;
+    widget.elementEntity.description = _controllerDescription.value.text;
+    widget.elementEntity.amount = int.parse(_controllerAmount.value.text);
+    print(widget.elementEntity);
   }
 
   String _required(String value) {
@@ -125,10 +126,10 @@ class _FormElements extends State<FormElements> {
             Text('Successful element'),
             SizedBox(width: 10),
             Switch(
-              value: widget.element['success'],
+              value: widget.elementEntity.success,
               onChanged: (value) {
                 setState(() {
-                  widget.element['success'] = value;
+                  widget.elementEntity.success = value;
                 });
               },
               focusNode: _focusSuccess,
