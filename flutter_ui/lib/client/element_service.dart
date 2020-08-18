@@ -18,4 +18,19 @@ class ElementService {
         throw Exception('request failed');
     }
   }
+
+  Future<bool> deleteElement(String id) async {
+    final response = await Rest.requestDelete('/elements/$id');
+
+    switch (response.statusCode) {
+      case 204:
+        return true;
+        break;
+      case 404:
+        return false;
+        break;
+      default:
+        throw Exception('request failed');
+    }
+  }
 }
