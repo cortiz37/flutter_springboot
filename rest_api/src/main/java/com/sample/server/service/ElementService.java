@@ -28,6 +28,10 @@ public class ElementService {
         return elementRepository.getById(id);
     }
 
+    public boolean delete(String id) {
+        return elementRepository.delete(id);
+    }
+
     public List<Element> getAll() {
         return elementRepository.getDatabase();
     }

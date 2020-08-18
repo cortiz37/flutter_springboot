@@ -29,6 +29,11 @@ public class ElementRepository {
         return database.stream().filter(e -> id.equals(e.getId())).findFirst();
     }
 
+    public boolean delete(String id) {
+        Optional<Element> element = database.stream().filter(e -> id.equals(e.getId())).findFirst();
+        return element.map(database::remove).orElse(false);
+    }
+
     public List<Element> getDatabase() {
         return database;
     }

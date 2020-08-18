@@ -35,6 +35,17 @@ class ElementRepositoryTest {
     }
 
     @Test
+    void delete() {
+        Element element = new Element();
+        element.setId("tbd");
+        elementRepository.save(element);
+
+        boolean result = elementRepository.delete(element.getId());
+
+        assertTrue(result);
+    }
+
+    @Test
     void getById() {
         Optional<Element> element = elementRepository.getById(id);
 

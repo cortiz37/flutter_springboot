@@ -35,6 +35,12 @@ public class ElementController {
     @PostMapping("/")
     public ResponseEntity create(@RequestBody Element element) {
         Element saved = elementService.create(element);
-        return ResponseEntity.created(URI.create("/${saved.id}")).build();
+        return ResponseEntity.created(URI.create(String.format("/%s", saved.getId()))).build();
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity delete(@PathVariable(name = "id") String id) {
+        boolean removed = elementService.delete(id);
+        return removed ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }

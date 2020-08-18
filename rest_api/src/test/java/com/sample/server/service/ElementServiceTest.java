@@ -55,6 +55,16 @@ class ElementServiceTest {
     }
 
     @Test
+    void delete() {
+        final String id = "e1";
+        Mockito.when(elementRepository.delete(id)).thenReturn(true);
+
+        boolean result = elementService.delete(id);
+
+        assertTrue(result);
+    }
+
+    @Test
     void getAll() {
         final List<Element> database = Collections.singletonList(new Element());
         Mockito.when(elementRepository.getDatabase()).thenReturn(database);
