@@ -1,13 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/client/element_service.dart';
+import 'package:flutter_ui/domain/element_entity.dart';
 import 'package:flutter_ui/main.dart';
 
-class ListElements extends StatelessWidget {
+class ListElements extends StatefulWidget {
   final StandardAppBar appBar;
 
   ListElements({this.appBar});
 
-  Widget _asListView(List elements) {
+  @override
+  _ListElements createState() => _ListElements();
+}
+
+class _ListElements extends State<ListElements> {
+  Widget _asListView(List<ElementEntity> elements) {
     return ListView.separated(
       separatorBuilder: (context, index) {
         return Divider(thickness: 1);
@@ -16,19 +23,35 @@ class ListElements extends StatelessWidget {
       scrollDirection: Axis.vertical,
       itemCount: elements.length,
       itemBuilder: (BuildContext context, int index) {
-        var element = elements[index];
-        return ListTile(
-          leading: element['success']
-              ? Icon(Icons.label_important)
-              : Icon(Icons.label_outline),
-          title: Text(element['name']),
-          subtitle: Text(element['description']),
-          trailing: Chip(
-            backgroundColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100),
-                side: BorderSide(color: Colors.grey, width: 1)),
-            label: Text(element['amount'].toString()),
+        ElementEntity element = elements[index];
+        return Dismissible(
+          direction: DismissDirection.startToEnd,
+          key: Key(index.toString()),
+          background: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [Colors.red[400], Colors.white],
+                  tileMode: TileMode.clamp),
+            ),
+          ),
+          onDismissed: (direction) {
+            //elementService.deleteElement(element.)
+            Scaffold.of(context)
+                .showSnackBar(SnackBar(content: Text("Element deleted")));
+          },
+          child: ListTile(
+            leading: element.success
+                ? Icon(Icons.label_important)
+                : Icon(Icons.label_outline),
+            title: Text(element.name),
+            subtitle: Text(element.description),
+            trailing: Chip(
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                  side: BorderSide(color: Colors.grey, width: 1)),
+              label: Text(element.amount.toString()),
+            ),
           ),
         );
       },
@@ -38,14 +61,14 @@ class ListElements extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: this.appBar,
+      appBar: widget.appBar,
       body: Container(
         //padding: EdgeInsets.all(10),
-        child: FutureBuilder<Iterable>(
+        child: FutureBuilder<List<ElementEntity>>(
           future: elementService.getElements(),
-          builder: (BuildContext context, AsyncSnapshot<Iterable> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<List<ElementEntity>> snapshot) {
             if (snapshot.hasData) {
-              return this._asListView(List.of(snapshot.data));
+              return this._asListView(snapshot.data);
             } else if (snapshot.hasError) {
               return Text('Error loading elements: ${snapshot.error}');
             }

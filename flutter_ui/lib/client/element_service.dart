@@ -1,19 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter_ui/client/rest.dart';
+import 'package:flutter_ui/domain/element_entity.dart';
 
 final ElementService elementService = ElementService._private();
 
 class ElementService {
   ElementService._private();
 
-  Future<Iterable> getElements() async {
+  Future<List<ElementEntity>> getElements() async {
     final response = await Rest.requestGet('/elements/');
 
     switch (response.statusCode) {
       case 200:
-        return Rest.decodeResponse(response);
-        break;
+        return List.of(Rest.decodeResponse(response))
+            .map((o) => ElementEntity.fromJson(o))
+            .toList();
       default:
         throw Exception('request failed');
     }
