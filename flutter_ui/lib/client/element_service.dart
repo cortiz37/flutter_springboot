@@ -21,6 +21,18 @@ class ElementService {
     }
   }
 
+  Future<ElementEntity> saveElement(ElementEntity elementEntity) async {
+    final response = await Rest.requestPost('/elements/', elementEntity);
+
+    switch (response.statusCode) {
+      case 201:
+        return ElementEntity.fromJson(Rest.decodeResponse(response));
+        break;
+      default:
+        throw Exception('request failed');
+    }
+  }
+
   Future<bool> deleteElement(String id) async {
     final response = await Rest.requestDelete('/elements/$id');
 
