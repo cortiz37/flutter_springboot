@@ -34,10 +34,16 @@ class _ListElements extends State<ListElements> {
                   tileMode: TileMode.clamp),
             ),
           ),
-          onDismissed: (direction) {
-            //elementService.deleteElement(element.)
-            Scaffold.of(context)
-                .showSnackBar(SnackBar(content: Text("Element deleted")));
+          onDismissed: (direction) async {
+            if (await elementService.deleteElement(element.id)) {
+              Scaffold.of(context)
+                  .showSnackBar(SnackBar(content: Text("Element deleted")));
+              setState(() {
+                elements.removeAt(index);
+              });
+            } else {
+              setState(() {});
+            }
           },
           child: ListTile(
             leading: element.success
@@ -66,9 +72,17 @@ class _ListElements extends State<ListElements> {
         //padding: EdgeInsets.all(10),
         child: FutureBuilder<List<ElementEntity>>(
           future: elementService.getElements(),
-          builder: (BuildContext context, AsyncSnapshot<List<ElementEntity>> snapshot) {
+          builder: (BuildContext context,
+              AsyncSnapshot<List<ElementEntity>> snapshot) {
             if (snapshot.hasData) {
-              return this._asListView(snapshot.data);
+              List data = snapshot.data;
+              return data.isNotEmpty
+                  ? this._asListView(data)
+                  : Center(
+                      child: Text(
+                      'No data',
+                      style: Theme.of(context).textTheme.headline5,
+                    ));
             } else if (snapshot.hasError) {
               return Text('Error loading elements: ${snapshot.error}');
             }
