@@ -38,7 +38,7 @@ public class ElementController {
         return ResponseEntity.created(URI.create(String.format("/%s", saved.getId()))).build();
     }
 
-    @PostMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable(name = "id") String id) {
         boolean removed = elementService.delete(id);
         return removed ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
