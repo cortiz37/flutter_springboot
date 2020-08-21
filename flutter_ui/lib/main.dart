@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui/domain/element_entity.dart';
 import 'package:flutter_ui/routes/form_elements.dart';
 import 'package:flutter_ui/routes/list_elements.dart';
 
@@ -14,8 +13,6 @@ const ROUTE_FORM = '/form';
 class SimpleApp extends StatelessWidget {
   final StandardAppBar appBar = StandardAppBar();
 
-  ElementEntity elementEntity = new ElementEntity.empty();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,8 +22,7 @@ class SimpleApp extends StatelessWidget {
       home: ListElements(appBar: appBar),
       routes: {
         ROUTE_LIST: (context) => ListElements(appBar: appBar),
-        ROUTE_FORM: (context) =>
-            FormElements(appBar: appBar, elementEntity: elementEntity),
+        ROUTE_FORM: (context) => FormElements(appBar: appBar),
       },
     );
   }

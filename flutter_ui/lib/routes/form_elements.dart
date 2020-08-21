@@ -4,9 +4,9 @@ import 'package:flutter_ui/main.dart';
 
 class FormElements extends StatefulWidget {
   final StandardAppBar appBar;
-  final ElementEntity elementEntity;
+  final ElementEntity elementEntity = new ElementEntity.empty();
 
-  FormElements({this.appBar, this.elementEntity});
+  FormElements({this.appBar});
 
   @override
   _FormElements createState() => _FormElements();
@@ -32,7 +32,8 @@ class _FormElements extends State<FormElements> {
     _controllerName = TextEditingController(text: widget.elementEntity.name);
     _controllerDescription =
         TextEditingController(text: widget.elementEntity.description);
-    _controllerAmount = TextEditingController(text: widget.elementEntity.amount.toString());
+    _controllerAmount =
+        TextEditingController(text: widget.elementEntity.amount.toString());
   }
 
   void _save() async {
