@@ -194,6 +194,9 @@ class _FormElements extends State<FormElements> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: widget.appBar, body: this._buildForm(context));
+    return Scaffold(
+      appBar: widget.appBar,
+      body: SingleChildScrollView(child: this._buildForm(context)),
+    );
   }
 }
