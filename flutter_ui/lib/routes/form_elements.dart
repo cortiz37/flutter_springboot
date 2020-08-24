@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/client/element_service.dart';
 import 'package:flutter_ui/domain/element_entity.dart';
 import 'package:flutter_ui/main.dart';
 
@@ -43,7 +44,11 @@ class _FormElements extends State<FormElements> {
     widget.elementEntity.name = _controllerName.value.text;
     widget.elementEntity.description = _controllerDescription.value.text;
     widget.elementEntity.amount = int.parse(_controllerAmount.value.text);
-    print(widget.elementEntity.toJson());
+
+    if(await elementService.saveElement(widget.elementEntity)) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(ROUTE_LIST, (_) => false);
+    }
   }
 
   String _required(String value) {
