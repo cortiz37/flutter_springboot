@@ -69,7 +69,6 @@ class _ListElements extends State<ListElements> {
     return Scaffold(
       appBar: widget.appBar,
       body: Container(
-        //padding: EdgeInsets.all(10),
         child: FutureBuilder<List<ElementEntity>>(
           future: elementService.getElements(),
           builder: (BuildContext context,
