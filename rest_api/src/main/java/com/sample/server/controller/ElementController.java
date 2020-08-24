@@ -35,7 +35,7 @@ public class ElementController {
     @PostMapping("/")
     public ResponseEntity create(@RequestBody Element element) {
         Element saved = elementService.create(element);
-        return ResponseEntity.created(URI.create(String.format("/%s", saved.getId()))).body(saved);
+        return ResponseEntity.created(URI.create(String.format("/%s", saved.getId()))).build();
     }
 
     @DeleteMapping("/{id}")
