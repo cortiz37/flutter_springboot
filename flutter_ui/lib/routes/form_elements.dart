@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/client/element_service.dart';
+import 'package:flutter_ui/component/BottomBar.dart';
 import 'package:flutter_ui/domain/element_entity.dart';
 import 'package:flutter_ui/main.dart';
 
@@ -201,6 +202,7 @@ class _FormElements extends State<FormElements> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: widget.appBar,
+      bottomNavigationBar: BottomBar('Element form'),
       body: SingleChildScrollView(child: this._buildForm(context)),
     );
   }
