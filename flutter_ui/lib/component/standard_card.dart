@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 class StandardCard extends StatelessWidget {
   final String text;
 
-  StandardCard({
-    @required this.text,
-  });
+  StandardCard(this.text);
 
   @override
   Widget build(BuildContext context) {
