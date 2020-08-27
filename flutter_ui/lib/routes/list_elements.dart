@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/client/element_service.dart';
-import 'package:flutter_ui/component/BottomBar.dart';
+import 'package:flutter_ui/component/bottom_bar.dart';
 import 'package:flutter_ui/domain/element_entity.dart';
 import 'package:flutter_ui/main.dart';
 
