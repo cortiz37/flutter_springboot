@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/client/element_service.dart';
 import 'package:flutter_ui/component/bottom_bar.dart';
+import 'package:flutter_ui/component/standard_card.dart';
 import 'package:flutter_ui/domain/element_entity.dart';
 import 'package:flutter_ui/main.dart';
 
@@ -79,13 +80,10 @@ class _ListElements extends State<ListElements> {
               List data = snapshot.data;
               return data.isNotEmpty
                   ? this._asListView(data)
-                  : Center(
-                      child: Text(
-                      'No data',
-                      style: Theme.of(context).textTheme.headline5,
-                    ));
+                  : StandardCard('No data', info: true);
             } else if (snapshot.hasError) {
-              return Text('Error loading elements: ${snapshot.error}');
+              return StandardCard(
+                  'Cannot get data. Please check your connectivity');
             }
             return Center(child: CircularProgressIndicator());
           },
