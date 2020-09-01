@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/client/element_service.dart';
 import 'package:flutter_ui/component/bottom_bar.dart';
@@ -46,9 +48,17 @@ class _FormElements extends State<FormElements> {
     widget.elementEntity.description = _controllerDescription.value.text;
     widget.elementEntity.amount = int.parse(_controllerAmount.value.text);
 
-    if(await elementService.saveElement(widget.elementEntity)) {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(ROUTE_LIST, (_) => false);
+    try {
+      if (await elementService.saveElement(widget.elementEntity)) {
+        Navigator.of(context).pushNamedAndRemoveUntil(ROUTE_LIST, (_) => false);
+      }
+    } on SocketException catch (e) {
+      showDialog(
+          context: context,
+          child: new AlertDialog(
+            title: new Text("Request failed"),
+            content: new Text("Please check your connectivity"),
+          ));
     }
   }
 
