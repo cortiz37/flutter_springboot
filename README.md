@@ -1,6 +1,6 @@
 # flutter_springboot
 
-Simple use case: springboot rest-api consumption from a flutter app.
+Integration example: consuming SpringBoot rest-api from a flutter app
 ________________________________________________________________________________
 
 ## Setup
