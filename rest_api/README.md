@@ -47,3 +47,44 @@ curl GET 'http://<HOST>/v1/rest_api/elements/'
 ###### Error Codes:
 
 * 500 Internal Server Error
+
+#### Get one
+
+Get one element from 'database' by id
+```
+curl GET 'http://<HOST>/v1/rest_api/elements/{id}'
+```
+
+##### Responses
+
+* 200 OK
+
+```
+{
+  "id": "default-e1",
+  "name": "Element 1",
+  "description": "Lorem ipsum dolor sit amet",
+  "date": "2020-09-07T13:22:15.52Z",
+  "success": true,
+  "amount": 5
+}
+```
+
+###### Error Codes:
+
+* 500 Internal Server Error
+
+#### Delete
+
+Delete element from 'database'
+```
+curl DELETE 'http://<HOST>/v1/rest_api/elements/{id}'
+```
+
+##### Responses
+
+* 204 No Content
+
+###### Error Codes:
+
+* 500 Internal Server Error
