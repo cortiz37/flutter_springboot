@@ -72,6 +72,7 @@ curl GET 'http://<HOST>/v1/rest_api/elements/{id}'
 
 ###### Error Codes:
 
+* 404 Not Found
 * 500 Internal Server Error
 
 #### Delete
@@ -87,4 +88,5 @@ curl DELETE 'http://<HOST>/v1/rest_api/elements/{id}'
 
 ###### Error Codes:
 
+* 404 Not Found
 * 500 Internal Server Error
