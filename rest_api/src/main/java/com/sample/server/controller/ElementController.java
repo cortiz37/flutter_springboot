@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.Optional;
 
@@ -33,9 +34,9 @@ public class ElementController {
     }
 
     @PostMapping("/")
-    public ResponseEntity create(@RequestBody Element element) {
+    public ResponseEntity create(HttpServletRequest request, @RequestBody Element element) {
         Element saved = elementService.create(element);
-        return ResponseEntity.created(URI.create(String.format("/%s", saved.getId()))).build();
+        return ResponseEntity.created(URI.create(String.format("%s%s", request.getRequestURI(), saved.getId()))).build();
     }
 
     @DeleteMapping("/{id}")
