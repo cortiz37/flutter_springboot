@@ -75,6 +75,34 @@ curl GET 'http://<HOST>/v1/rest_api/elements/{id}'
 * 404 Not Found
 * 500 Internal Server Error
 
+#### Create
+
+Add a new element to 'database'
+```
+curl POST 'http://<HOST>/v1/rest_api/elements/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+      "name": "new element",
+      "description": "description",
+      "success": true,
+      "amount": 5
+    }
+}'
+```
+
+##### Responses
+
+* 201 Created
+
+```
+HTTP/1.1 201
+Location: /{generated_id}
+```
+
+###### Error Codes:
+
+* 500 Internal Server Error
+
 #### Delete
 
 Delete element from 'database'
