@@ -96,7 +96,7 @@ curl POST 'http://<HOST>/v1/rest_api/elements/' \
 
 ```
 HTTP/1.1 201
-Location: /{generated_id}
+Location: /v1/rest_api/elements/{generated_id}
 ```
 
 ###### Error Codes:
