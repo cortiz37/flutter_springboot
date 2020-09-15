@@ -28,7 +28,7 @@ class _ListElements extends State<ListElements> {
         ElementEntity element = elements[index];
         return Dismissible(
           direction: DismissDirection.startToEnd,
-          key: Key(index.toString()),
+          key: Key(element.id),
           background: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
